@@ -95,6 +95,8 @@ services:
       FILE_TOKEN_KEY: ${FASTGPT_FILE_TOKEN_KEY}
       MONGODB_URI: ${FASTGPT_MONGODB_URI}
       PG_URL: ${FASTGPT_PG_URL}
+      AXIOS_PROXY_HOST: ${FASTGPT_AXIOS_PROXY_HOST}
+      AXIOS_PROXY_PORT: ${FASTGPT_AXIOS_PROXY_PORT}
       TZ: ${TZ}
     volumes:
       - nfs_fastgpt_config:/app/data
