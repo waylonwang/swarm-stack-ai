@@ -15,6 +15,13 @@ services:
       - nfs_xiaogpt_config1:/config
       - nfs_xiaogpt_src:/app/xiaogpt 
     deploy:
+      labels:
+        - homepage.group=AI
+        - homepage.name=XiaoGPT \#1
+        - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
+        - homepage.description=XiaoGPT on Bed Room
+        - homepage.ping=http://xiaogpt1
+        - homepage.weight=10    
       mode: replicated
       replicas: 1
       placement:
@@ -33,6 +40,13 @@ services:
       - nfs_xiaogpt_config2:/config
       - nfs_xiaogpt_src:/app/xiaogpt
     deploy:
+      labels:
+        - homepage.group=AI
+        - homepage.name=XiaoGPT \#2
+        - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
+        - homepage.description=XiaoGPT on Living Room
+        - homepage.ping=http://xiaogpt2
+        - homepage.weight=11    
       mode: replicated
       replicas: 1
       placement:
@@ -51,12 +65,61 @@ services:
       - nfs_xiaogpt_config3:/config
       - nfs_xiaogpt_src:/app/xiaogpt
     deploy:
+      labels:
+        - homepage.group=AI
+        - homepage.name=XiaoGPT \#3
+        - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
+        - homepage.description=XiaoGPT on Children Room
+        - homepage.ping=http://xiaogpt3
+        - homepage.weight=12
       mode: replicated
       replicas: 1
       placement:
         constraints:
           - node.labels.type == vm
           - node.labels.ai == true                    
+
+  # FastGPT
+  fastgpt:
+    image: ghcr.io/labring/fastgpt:latest
+    networks: [network_cluster]
+    restart: on-failure
+    environment:
+      # 直接使用Portainer容器内的环境变量
+      DEFAULT_ROOT_PSW: ${FASTGPT_DEFAULT_ROOT_PSW}
+      OPENAI_BASE_URL: ${FASTGPT_OPENAI_BASE_URL}
+      CHAT_API_KEY: ${FASTGPT_CHAT_API_KEY}
+      DB_MAX_LINK: ${FASTGPT_DB_MAX_LINK}
+      TOKEN_KEY: ${FASTGPT_TOKEN_KEY}
+      ROOT_KEY: ${FASTGPT_ROOT_KEY}
+      FILE_TOKEN_KEY: ${FASTGPT_FILE_TOKEN_KEY}
+      MONGODB_URI: ${FASTGPT_MONGODB_URI}
+      PG_URL: ${FASTGPT_PG_URL}
+      TZ: ${TZ}
+    # volumes:
+    #   - nfs_fastgpt_config:/app/data
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.fastgpt.rule=Host(`fastgpt.${DOMAIN_SWARM}`)"
+        - "traefik.http.routers.fastgpt.entrypoints=websecure"
+        - "traefik.http.routers.fastgpt.service=fastgpt"
+        - "traefik.http.routers.fastgpt.middlewares=cors-headers@file,noauth-chain@file"
+        - "traefik.http.services.fastgpt.loadbalancer.server.port=3000"
+        - homepage.group=AI
+        - homepage.name=FastGPT
+        - homepage.icon=https://www.waylon.wang:4/images/services/fastgpt.png
+        - homepage.href=https://fastgpt.${DOMAIN_SWARM}:4/
+        - homepage.description=FastGPT
+        - homepage.ping=http://fastgpt
+        - homepage.weight=1
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.type == vm
+          - node.labels.application == true
+
 
 networks:
   network_cluster:
@@ -72,19 +135,24 @@ volumes:
     driver: local
     driver_opts:
       <<: *common-keys-volume
-      device: :${NFS_DEVICE}/application/ai/xiaogpt/src/xiaogpt        
+      device: :${NFS_DEVICE}/ai/xiaogpt/src/xiaogpt        
   nfs_xiaogpt_config1:
     driver: local
     driver_opts:
       <<: *common-keys-volume
-      device: :${NFS_DEVICE}/application/ai/xiaogpt/config1
+      device: :${NFS_DEVICE}/ai/xiaogpt/config1
   nfs_xiaogpt_config2:
     driver: local
     driver_opts:
       <<: *common-keys-volume
-      device: :${NFS_DEVICE}/application/ai/xiaogpt/config2
+      device: :${NFS_DEVICE}/ai/xiaogpt/config2
   nfs_xiaogpt_config3:
     driver: local
     driver_opts:
       <<: *common-keys-volume
-      device: :${NFS_DEVICE}/application/ai/xiaogpt/config3         
+      device: :${NFS_DEVICE}/ai/xiaogpt/config3    
+  nfs_fastgpt_config:  
+    driver: local
+    driver_opts:
+      <<: *common-keys-volume
+      device: :${NFS_DEVICE}/ai/fastgpt/data    
