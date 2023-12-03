@@ -96,8 +96,8 @@ services:
       MONGODB_URI: ${FASTGPT_MONGODB_URI}
       PG_URL: ${FASTGPT_PG_URL}
       TZ: ${TZ}
-    # volumes:
-    #   - nfs_fastgpt_config:/app/data
+    volumes:
+      - nfs_fastgpt_config:/app/data
     deploy:
       labels:
         - "traefik.enable=true"
