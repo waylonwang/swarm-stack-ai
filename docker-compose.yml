@@ -122,6 +122,42 @@ services:
           - node.labels.type == vm
           - node.labels.ai == true
 
+  # One API
+  oneapi:
+    image: justsong/one-api:latest
+    command: --log-dir /app/logs
+    networks: [network_cluster]
+    restart: on-failure
+    environment:
+      # 直接使用Portainer容器内的环境变量
+      # SQL_DSN: ${ONEAPI_SQL_DSN}  # 修改此行，或注释掉以使用 SQLite 作为数据库
+      REDIS_CONN_STRING: ${ONEAPI_REDIS_CONN_STRING}
+      SESSION_SECRET: ${ONEAPI_SESSION_SECRET}
+      TZ: ${TZ}     
+    volumes:
+      - nfs_oneapi_data:/data
+      - nfs_oneapi_log:/app/logs  
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.oneapi.rule=Host(`oneapi.${DOMAIN_SWARM}`)"
+        - "traefik.http.routers.oneapi.entrypoints=websecure"
+        - "traefik.http.routers.oneapi.service=oneapi"
+        - "traefik.http.routers.oneapi.middlewares=cors-headers@file,noauth-chain@file"
+        - "traefik.http.services.oneapi.loadbalancer.server.port=3000"
+        - homepage.group=AI
+        - homepage.name=OneAPI
+        - homepage.icon=https://www.waylon.wang:4/images/services/oneapi.png
+        - homepage.href=https://oneapi.${DOMAIN_SWARM}:4/
+        - homepage.description=OneAPI
+        - homepage.ping=http://oneapi
+        - homepage.weight=2
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.type == vm
+          - node.labels.ai == true              
 
 networks:
   network_cluster:
@@ -157,4 +193,14 @@ volumes:
     driver: local
     driver_opts:
       <<: *common-keys-volume
-      device: :${NFS_DEVICE}/ai/fastgpt/data    
+      device: :${NFS_DEVICE}/ai/fastgpt/data  
+  nfs_oneapi_data:  
+    driver: local
+    driver_opts:
+      <<: *common-keys-volume
+      device: :${NFS_DEVICE}/ai/oneapi/data   
+  nfs_oneapi_log:  
+    driver: local
+    driver_opts:
+      <<: *common-keys-volume
+      device: :${NFS_DEVICE}/ai/oneapi/log
