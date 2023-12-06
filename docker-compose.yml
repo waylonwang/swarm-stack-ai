@@ -17,7 +17,7 @@ services:
     deploy:
       labels:
         - homepage.group=AI
-        - homepage.name=XiaoGPT \#1
+        - homepage.name=XiaoGPT #1
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Bed Room
         - homepage.ping=xiaogpt1
@@ -42,7 +42,7 @@ services:
     deploy:
       labels:
         - homepage.group=AI
-        - homepage.name=XiaoGPT \#2
+        - homepage.name=XiaoGPT #2
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Living Room
         - homepage.ping=xiaogpt2
@@ -67,7 +67,7 @@ services:
     deploy:
       labels:
         - homepage.group=AI
-        - homepage.name=XiaoGPT \#3
+        - homepage.name=XiaoGPT #3
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Children Room
         - homepage.ping=xiaogpt3
@@ -191,7 +191,7 @@ services:
         - "traefik.http.routers.gptacademic.middlewares=cors-headers@file,noauth-chain@file"
         - "traefik.http.services.gptacademic.loadbalancer.server.port=${GPTACADEMIC_WEB_PORT}"
         - homepage.group=AI
-        - homepage.name=OneAPI
+        - homepage.name=GPT Academic
         - homepage.icon=https://www.waylon.wang:4/images/services/gptacademic.png
         - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
         - homepage.description=GPT Academic
