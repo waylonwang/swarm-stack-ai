@@ -159,8 +159,51 @@ services:
       placement:
         constraints:
           - node.labels.type == vm
-          - node.labels.ai == true              
+          - node.labels.ai == true     
 
+  # GPT Academic
+  gptacademic:
+    image: ghcr.io/binary-husky/gpt_academic_nolocal:master
+    command: >
+      bash -c "python3 -u main.py"
+    networks: [network_cluster]
+    restart: on-failure
+    environment:
+      # 直接使用Portainer容器内的环境变量
+      # SQL_DSN: ${ONEAPI_SQL_DSN}  # 修改此行，或注释掉以使用 SQLite 作为数据库
+      API_KEY: ${GPTACADEMIC_API_KEY}
+      USE_PROXY: ${GPTACADEMIC_USE_PROXY}
+      # proxies: { "http": "socks5h://localhost:10880", "https": "socks5h://localhost:10880", } 
+      LLM_MODEL: ${GPTACADEMIC_LLM_MODEL}
+      AVAIL_LLM_MODELS: $GPTACADEMIC_AVAIL_LLM_MODELS}
+      WEB_PORT: ${GPTACADEMIC_WEB_PORT}
+      ADD_WAIFU: ${GPTACADEMIC_ADD_WAIFU}
+      THEME: ${GPTACADEMIC_THEME}
+      DEFAULT_WORKER_NUM: ${GPTACADEMIC_DEFAULT_WORKER_NUM}
+      AUTHENTICATION: ${GPTACADEMIC_AUTHENTICATION}
+      TZ: ${TZ}     
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.gptacademic.rule=Host(`gptacademic.${DOMAIN_SWARM}`)"
+        - "traefik.http.routers.gptacademic.entrypoints=websecure"
+        - "traefik.http.routers.gptacademic.service=gptacademic"
+        - "traefik.http.routers.gptacademic.middlewares=cors-headers@file,noauth-chain@file"
+        - "traefik.http.services.gptacademic.loadbalancer.server.port=${GPTACADEMIC_WEB_PORT}"
+        - homepage.group=AI
+        - homepage.name=OneAPI
+        - homepage.icon=https://www.waylon.wang:4/images/services/gptacademic.png
+        - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
+        - homepage.description=GPT Academic
+        - homepage.siteMonitor=http://gptacademic:3000
+        - homepage.weight=3
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.type == vm
+          - node.labels.ai == true     
+                     
 networks:
   network_cluster:
     external: true
