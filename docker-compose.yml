@@ -170,8 +170,8 @@ services:
     restart: on-failure
     environment:
       # 直接使用Portainer容器内的环境变量
-      # SQL_DSN: ${ONEAPI_SQL_DSN}  # 修改此行，或注释掉以使用 SQLite 作为数据库
       API_KEY: ${GPTACADEMIC_API_KEY}
+      API_URL_REDIRECT: ${GPTACADEMIC_API_URL_REDIRECT}
       USE_PROXY: ${GPTACADEMIC_USE_PROXY}
       # proxies: { "http": "socks5h://localhost:10880", "https": "socks5h://localhost:10880", } 
       LLM_MODEL: ${GPTACADEMIC_LLM_MODEL}
