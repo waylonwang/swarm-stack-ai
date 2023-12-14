@@ -110,7 +110,7 @@ services:
         - "traefik.http.services.fastgpt.loadbalancer.server.port=3000"
         - homepage.group=AI
         - homepage.name=FastGPT
-        - homepage.icon=https://www.waylon.wang:4/images/services/fastgpt.png
+        - homepage.icon=chatgpt.png
         - homepage.href=https://fastgpt.${DOMAIN_SWARM}:4/
         - homepage.description=FastGPT
         - homepage.siteMonitor=http://fastgpt:3000
@@ -149,7 +149,7 @@ services:
         - "traefik.http.services.oneapi.loadbalancer.server.port=3000"
         - homepage.group=AI
         - homepage.name=OneAPI
-        - homepage.icon=https://www.waylon.wang:4/images/services/oneapi.png
+        - homepage.icon=chatgpt.png
         - homepage.href=https://oneapi.${DOMAIN_SWARM}:4/
         - homepage.description=OneAPI
         - homepage.siteMonitor=http://oneapi:3000
@@ -192,7 +192,7 @@ services:
         - "traefik.http.services.gptacademic.loadbalancer.server.port=${GPTACADEMIC_WEB_PORT}"
         - homepage.group=AI
         - homepage.name=GPT Academic
-        - homepage.icon=https://www.waylon.wang:4/images/services/gptacademic.png
+        - homepage.icon=chatgpt.png
         - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
         - homepage.description=GPT Academic
         - homepage.siteMonitor=http://gptacademic:3000
