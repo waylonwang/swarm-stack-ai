@@ -195,7 +195,7 @@ services:
         - homepage.icon=chatgpt.png
         - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
         - homepage.description=GPT Academic
-        - homepage.siteMonitor=http://gptacademic:3000
+        - homepage.siteMonitor=http://gptacademic:${GPTACADEMIC_WEB_PORT}
         - homepage.weight=3
       mode: replicated
       replicas: 1
