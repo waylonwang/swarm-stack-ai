@@ -110,9 +110,9 @@ services:
         - "traefik.http.services.fastgpt.loadbalancer.server.port=3000"
         - homepage.group=AI
         - homepage.name=FastGPT
-        - homepage.icon=chatgpt.png
+        - homepage.icon=https://www.waylon.wang:4/images/services/fastgpt.png
         - homepage.href=https://fastgpt.${DOMAIN_SWARM}:4/
-        - homepage.description=FastGPT
+        - homepage.description=基于LLM大模型的AI知识库问答平台
         - homepage.siteMonitor=http://fastgpt:3000
         - homepage.weight=1
       mode: replicated
@@ -149,9 +149,9 @@ services:
         - "traefik.http.services.oneapi.loadbalancer.server.port=3000"
         - homepage.group=AI
         - homepage.name=OneAPI
-        - homepage.icon=chatgpt.png
+        - homepage.icon=https://www.waylon.wang:4/images/services/oneapi.png
         - homepage.href=https://oneapi.${DOMAIN_SWARM}:4/
-        - homepage.description=OneAPI
+        - homepage.description=OpenAI接口管理&分发系统
         - homepage.siteMonitor=http://oneapi:3000
         - homepage.weight=2
       mode: replicated
@@ -192,9 +192,9 @@ services:
         - "traefik.http.services.gptacademic.loadbalancer.server.port=${GPTACADEMIC_WEB_PORT}"
         - homepage.group=AI
         - homepage.name=GPT Academic
-        - homepage.icon=chatgpt.png
+        - homepage.icon=https://www.waylon.wang:4/images/services/academic.png
         - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
-        - homepage.description=GPT Academic
+        - homepage.description=GPT 学术优化
         - homepage.siteMonitor=http://gptacademic:${GPTACADEMIC_WEB_PORT}
         - homepage.weight=3
       mode: replicated
