@@ -16,12 +16,12 @@ services:
       - nfs_xiaogpt_src:/app/xiaogpt 
     deploy:
       labels:
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=XiaoGPT #1
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Bed Room
         - homepage.ping=xiaogpt1
-        - homepage.weight=10    
+        - homepage.weight=20    
       mode: replicated
       replicas: 1
       placement:
@@ -41,12 +41,12 @@ services:
       - nfs_xiaogpt_src:/app/xiaogpt
     deploy:
       labels:
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=XiaoGPT #2
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Living Room
         - homepage.ping=xiaogpt2
-        - homepage.weight=11    
+        - homepage.weight=21    
       mode: replicated
       replicas: 1
       placement:
@@ -66,12 +66,12 @@ services:
       - nfs_xiaogpt_src:/app/xiaogpt
     deploy:
       labels:
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=XiaoGPT #3
         - homepage.icon=https://www.waylon.wang:4/images/services/xiaogpt.png
         - homepage.description=XiaoGPT on Children Room
         - homepage.ping=xiaogpt3
-        - homepage.weight=12
+        - homepage.weight=22
       mode: replicated
       replicas: 1
       placement:
@@ -108,7 +108,7 @@ services:
         - "traefik.http.routers.fastgpt.service=fastgpt"
         - "traefik.http.routers.fastgpt.middlewares=cors-headers@file,noauth-chain@file"
         - "traefik.http.services.fastgpt.loadbalancer.server.port=3000"
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=FastGPT
         - homepage.icon=https://www.waylon.wang:4/images/services/fastgpt.png
         - homepage.href=https://fastgpt.${DOMAIN_SWARM}:4/
@@ -147,7 +147,7 @@ services:
         - "traefik.http.routers.oneapi.service=oneapi"
         - "traefik.http.routers.oneapi.middlewares=cors-headers@file,noauth-chain@file"
         - "traefik.http.services.oneapi.loadbalancer.server.port=3000"
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=OneAPI
         - homepage.icon=https://www.waylon.wang:4/images/services/oneapi.png
         - homepage.href=https://oneapi.${DOMAIN_SWARM}:4/
@@ -190,7 +190,7 @@ services:
         - "traefik.http.routers.gptacademic.service=gptacademic"
         - "traefik.http.routers.gptacademic.middlewares=cors-headers@file,noauth-chain@file"
         - "traefik.http.services.gptacademic.loadbalancer.server.port=${GPTACADEMIC_WEB_PORT}"
-        - homepage.group=AI
+        - homepage.group=AI & Automation
         - homepage.name=GPT Academic
         - homepage.icon=https://www.waylon.wang:4/images/services/academic.png
         - homepage.href=https://gptacademic.${DOMAIN_SWARM}:4/
