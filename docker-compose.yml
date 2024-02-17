@@ -125,7 +125,7 @@ services:
   # One API
   oneapi:
     image: justsong/one-api:latest
-    command: --log-dir /app/logs
+    # command: --log-dir /app/logs
     networks: [network_cluster]
     restart: on-failure
     environment:
