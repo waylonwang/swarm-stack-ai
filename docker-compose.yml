@@ -125,7 +125,7 @@ services:
   # One API
   oneapi:
     image: justsong/one-api:latest
-    # command: --log-dir /app/logs
+    command: --log-dir /app/logs
     networks: [network_cluster]
     restart: on-failure
     environment:
@@ -139,7 +139,7 @@ services:
       TZ: ${TZ}     
     volumes:
       - nfs_oneapi_data:/data
-      # - nfs_oneapi_log:/app/logs  
+      - nfs_oneapi_log:/app/logs  
     deploy:
       labels:
         - "traefik.enable=true"
