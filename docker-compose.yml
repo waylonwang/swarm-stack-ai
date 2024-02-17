@@ -136,9 +136,9 @@ services:
       HTTP_PROXY: ${CLASH_HTTP_PROXY}
       HTTPS_PROXY: ${CLASH_HTTP_PROXY}
       TZ: ${TZ}     
-    volumes:
-      - nfs_oneapi_data:/data
-      - nfs_oneapi_log:/app/logs  
+    # volumes:
+    #   - nfs_oneapi_data:/data
+    #   - nfs_oneapi_log:/app/logs  
     deploy:
       labels:
         - "traefik.enable=true"
