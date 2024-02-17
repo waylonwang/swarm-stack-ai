@@ -134,8 +134,8 @@ services:
       REDIS_CONN_STRING: ${ONEAPI_REDIS_CONN_STRING}
       SYNC_FREQUENCY: 60
       SESSION_SECRET: ${ONEAPI_SESSION_SECRET}
-      # HTTP_PROXY: ${CLASH_HTTP_PROXY}
-      # HTTPS_PROXY: ${CLASH_HTTP_PROXY}
+      HTTP_PROXY: ${CLASH_HTTP_PROXY}
+      HTTPS_PROXY: ${CLASH_HTTP_PROXY}
       TZ: ${TZ}     
     volumes:
       - nfs_oneapi_data:/data
