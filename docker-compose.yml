@@ -131,10 +131,10 @@ services:
     environment:
       # 直接使用Portainer容器内的环境变量
       # SQL_DSN: ${ONEAPI_SQL_DSN}  # 修改此行，或注释掉以使用 SQLite 作为数据库
-      REDIS_CONN_STRING: ${ONEAPI_REDIS_CONN_STRING}
-      SESSION_SECRET: ${ONEAPI_SESSION_SECRET}
-      HTTP_PROXY: ${CLASH_HTTP_PROXY}
-      HTTPS_PROXY: ${CLASH_HTTP_PROXY}
+      # REDIS_CONN_STRING: ${ONEAPI_REDIS_CONN_STRING}
+      # SESSION_SECRET: ${ONEAPI_SESSION_SECRET}
+      # HTTP_PROXY: ${CLASH_HTTP_PROXY}
+      # HTTPS_PROXY: ${CLASH_HTTP_PROXY}
       TZ: ${TZ}     
     # volumes:
     #   - nfs_oneapi_data:/data
